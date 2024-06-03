@@ -2,8 +2,39 @@
 import './zones.scss'
 import {useState} from "react";
 
-export default function Card({value, styleLeft, styleTop, id, onClickFunc, status}) {
+import myPicture from "@/app/mainBox/zones/images/12345.jpg";
+import Image from "next/image";
 
+
+
+export default function Card({value, styleLeft, styleTop, id, onClickFunc, status, gameMode, bgCoordinates}) {
+
+
+
+
+    function myContent () {
+        if (gameMode === 'numbers') {
+            return (
+                <>
+                    {status}
+                    {value}
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <div className='testClass'
+                         style={{
+                             width:'100%',
+                             height:'100%',
+                             backgroundImage: `url(${myPicture.src})`,
+                             backgroundSize: '500%',
+                             backgroundPosition: bgCoordinates}}>
+                    </div>
+                </>
+            )
+        }
+    }
 
     return (
         <>
@@ -16,10 +47,7 @@ export default function Card({value, styleLeft, styleTop, id, onClickFunc, statu
                  onClick={onClickFunc}
                  status = {status}
             >
-                {value}
-                <br/>
-                {status}
-
+               {myContent()}
             </div>
         </>
     );

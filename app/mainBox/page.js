@@ -4,12 +4,62 @@ import {Container} from "postcss";
 import {useState} from "react";
 import Card from "@/app/mainBox/zones/page";
 import dynamic from "next/dynamic";
-
-
+import Image from "next/image";
+import myPicture from './zones/images/12345.jpg'
+import styles from "./main.scss";
 export default function Mainbox() {
+
+    const [gameMode, setGameMode] = useState('number');
+
     // const Card = dynamic(() => import('./zones/page'), { ssr: false })
 
-    //создаю главный массив, управаляющий дочерними компонентами
+    //массив с координатами для нарезки изображения на сектора
+
+    // const imagesPartsCoodrinates = [
+    //     'polygon(0% 0%, 25% 0%, 25% 25%, 0% 25%)',
+    //     'polygon(25% 0%, 50% 0%, 50% 25%, 25% 25%)',
+    //     'polygon(50% 0%, 75% 0%, 75% 25%, 50% 25%)',
+    //     'polygon(75% 0%, 100% 0%, 100% 25%, 75% 25%)',
+    //     'polygon(0% 25%, 25% 25%, 25% 50%, 0% 50%)',
+    //     'polygon(25% 25%, 50% 25%, 50% 50%, 25% 50%)',
+    //     'polygon(50% 25%, 75% 25%, 75% 50%, 50% 50%)',
+    //     'polygon(75% 25%, 100% 25%, 100% 50%, 75% 50%)',
+    //     'polygon(0% 50%, 25% 50%, 25% 75%, 0% 75%)',
+    //     'polygon(25% 50%, 50% 50%, 50% 75%, 25% 75%)',
+    //     'polygon(50% 50%, 75% 50%, 75% 75%, 50% 75%)',
+    //     'polygon(75% 50%, 100% 50%, 100% 75%, 75% 75%)',
+    //     'polygon(0% 75%, 25% 75%, 25% 100%, 0% 100%)',
+    //     'polygon(25% 75%, 50% 75%, 50% 100%, 25% 100%)',
+    //     'polygon(50% 75%, 75% 75%, 75% 100%, 50% 100%)',
+    //     'polygon(75% 75%, 100% 75%, 100% 100%, 75% 100%)',
+    // ]
+
+    const backgroundCoordinates = [
+        '0% 0%',
+        '25% 0%',
+        '50% 0%',
+        '75% 0%',
+        '0% 25%',
+        '25% 25%',
+        '50% 25%',
+        '75% 25%',
+        '0% 50%',
+        '25% 50%',
+        '50% 50%',
+        '75% 50%',
+        '0% 75%',
+        '25% 75%',
+        '50% 75%',
+        '75% 75%',
+    ]
+
+
+
+
+
+
+
+    //создаю главный массив числового мода, управаляющий дочерними компонентами
 
     const cardsCoordinates = [
         [' 0%', ' 0%', 'busy' ],
@@ -28,7 +78,6 @@ export default function Mainbox() {
         [' 25%', ' 75%', 'busy' ],
         [' 50%', ' 75%', 'busy' ],
         [' 75%', ' 75%', 'busy' ],
-
     ]
 
     const randomItem = +(Math.random()*10).toFixed(0);
@@ -127,30 +176,37 @@ export default function Mainbox() {
 
     const myNewCards = mainArray.map((item, index) => {
 
-        if (mainArray[index][2] !== 'empty') {
+        if (true) {                                                                 // todo
             return (
                 <>
-                    <Card key={index} styleLeft = {item[0]} styleTop = {item[1]} value = {cardsContextMain[index]} id = {index} onClickFunc={handleClick} status = {item[2]}/>
+                    <Card key={index}
+                          styleLeft = {item[0]}
+                          styleTop = {item[1]}
+                          value = {cardsContextMain[index]}
+                          id = {index}
+                          onClickFunc={handleClick}
+                          status = {item[2]}
+                          gameMode = {gameMode}
+                          bgCoordinates = {backgroundCoordinates[index]}
+                    />
                 </>
             )
         }
-        else {
-            return (
-                <>
-                    <Card key={index} styleLeft = {item[0]} styleTop = {item[1]} value = {cardsContextMain[index]} id = {index} onClickFunc={handleClick} status = {item[2]}/>
-                </>
-            )
-        }
+        // else {
+        //     return (
+        //         <>
+        //             <Card key={index} styleLeft = {item[0]} styleTop = {item[1]} value = {cardsContextMain[index]} id = {index} onClickFunc={handleClick} status = {item[2]} gameMode = {gameMode}/>
+        //         </>
+        //     )
+        // }
     })
-
-
-
 
     return (
         <>
             <div className="mainBox">
                 {myNewCards}
-
+                {/*<Image src={myPicture} style={{height:'100%', width:'100%'}}/>*/}
+                {/*<img src="/zones/images/12345.jpg" alt='something' />*/}
             </div>
         </>
     )
