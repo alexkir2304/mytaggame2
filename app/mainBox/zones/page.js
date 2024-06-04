@@ -11,7 +11,6 @@ export default function Card({value, styleLeft, styleTop, id, onClickFunc, statu
 
 
 
-
     function myContent () {
         if (gameMode === 'numbers') {
             return (
@@ -24,10 +23,11 @@ export default function Card({value, styleLeft, styleTop, id, onClickFunc, statu
             return (
                 <>
                     <div className='testClass'
+                         id = {id}
                          style={{
                              width:'100%',
                              height:'100%',
-                             backgroundImage: `url(${myPicture.src})`,
+                             backgroundImage: bgCoordinates !== null ? `url(${myPicture.src})`: null,
                              backgroundSize: '500%',
                              backgroundPosition: bgCoordinates}}>
                     </div>

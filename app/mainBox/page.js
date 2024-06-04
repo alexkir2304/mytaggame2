@@ -15,50 +15,6 @@ export default function Mainbox() {
 
     //массив с координатами для нарезки изображения на сектора
 
-    // const imagesPartsCoodrinates = [
-    //     'polygon(0% 0%, 25% 0%, 25% 25%, 0% 25%)',
-    //     'polygon(25% 0%, 50% 0%, 50% 25%, 25% 25%)',
-    //     'polygon(50% 0%, 75% 0%, 75% 25%, 50% 25%)',
-    //     'polygon(75% 0%, 100% 0%, 100% 25%, 75% 25%)',
-    //     'polygon(0% 25%, 25% 25%, 25% 50%, 0% 50%)',
-    //     'polygon(25% 25%, 50% 25%, 50% 50%, 25% 50%)',
-    //     'polygon(50% 25%, 75% 25%, 75% 50%, 50% 50%)',
-    //     'polygon(75% 25%, 100% 25%, 100% 50%, 75% 50%)',
-    //     'polygon(0% 50%, 25% 50%, 25% 75%, 0% 75%)',
-    //     'polygon(25% 50%, 50% 50%, 50% 75%, 25% 75%)',
-    //     'polygon(50% 50%, 75% 50%, 75% 75%, 50% 75%)',
-    //     'polygon(75% 50%, 100% 50%, 100% 75%, 75% 75%)',
-    //     'polygon(0% 75%, 25% 75%, 25% 100%, 0% 100%)',
-    //     'polygon(25% 75%, 50% 75%, 50% 100%, 25% 100%)',
-    //     'polygon(50% 75%, 75% 75%, 75% 100%, 50% 100%)',
-    //     'polygon(75% 75%, 100% 75%, 100% 100%, 75% 100%)',
-    // ]
-
-    const backgroundCoordinates = [
-        '0% 0%',
-        '25% 0%',
-        '50% 0%',
-        '75% 0%',
-        '0% 25%',
-        '25% 25%',
-        '50% 25%',
-        '75% 25%',
-        '0% 50%',
-        '25% 50%',
-        '50% 50%',
-        '75% 50%',
-        '0% 75%',
-        '25% 75%',
-        '50% 75%',
-        '75% 75%',
-    ]
-
-
-
-
-
-
-
     //создаю главный массив числового мода, управаляющий дочерними компонентами
 
     const cardsCoordinates = [
@@ -98,7 +54,6 @@ export default function Mainbox() {
             )
         }
     })
-    console.log(newContextArr)
 
     function shuffle(array) {
         let currentIndex = array.length, temporaryValue, randomIndex;
@@ -122,14 +77,40 @@ export default function Mainbox() {
 
     //перемещаем контент из карты 'empty'  в карту с наибольшим значением, наибольшее значение убираем
     const maxNumberIndex = newContextArr.findIndex(item => item === newContextArr.length)
-    console.log('maxNumberIndex' + maxNumberIndex)
     newContextArr[maxNumberIndex] = newContextArr[randomItem]
     newContextArr[randomItem] = null
 
 
     const [cardsContextMain, setCardsContextMain] = useState(newContextArr);
-    console.log(cardsContextMain)
 
+
+    // работаем с кодом для картинок
+
+    const backgroundCoordinates = [
+        '0% 0%',
+        '25% 0%',
+        '50% 0%',
+        '75% 0%',
+        '0% 25%',
+        '25% 25%',
+        '50% 25%',
+        '75% 25%',
+        '0% 50%',
+        '25% 50%',
+        '50% 50%',
+        '75% 50%',
+        '0% 75%',
+        '25% 75%',
+        '50% 75%',
+        '75% 75%',
+    ]
+
+    shuffle(backgroundCoordinates)
+    const lastCardIndex = backgroundCoordinates.findIndex((item) => item === '75% 75%')
+    backgroundCoordinates[lastCardIndex] = backgroundCoordinates[randomItem]
+    backgroundCoordinates[randomItem] = null
+
+    const [mainArrayImages, setMainArrayImages] = useState(backgroundCoordinates)
 
     function handleClick(e) {
         const currentEmptyIndex = mainArray.findIndex(item => item[2] === 'empty');
@@ -149,16 +130,11 @@ export default function Mainbox() {
             }
         }
 
-        console.log('differenceOfIndexes' + differenceOfIndexes())
-
-        if ((e.target.getAttribute('status') !== 'empty') && ((differenceOfIndexes() === 1) || (differenceOfIndexes() === 4))) {
+        if ((gameMode === 'numbers') && (e.target.getAttribute('status') !== 'empty') && ((differenceOfIndexes() === 1) || (differenceOfIndexes() === 4))) {
+            //обработка события для числового мода игры. Неплохо было бы их потом разделить
             const currentEmptyIndex = mainArray.findIndex(item => item[2] === 'empty');
-            console.log('my current empty index is' + currentEmptyIndex)
 
             const clickedIndex = e.target.getAttribute('id');
-            console.log('my clicked index is' + clickedIndex)
-
-            console.log(e.target)
 
             const nextMainArr = mainArray.slice()
             nextMainArr[clickedIndex][2] = 'empty'
@@ -169,8 +145,25 @@ export default function Mainbox() {
             const nextCardsContextMain = cardsContextMain.slice()
             nextCardsContextMain[currentEmptyIndex] = nextCardsContextMain[clickedIndex]
             nextCardsContextMain[clickedIndex] = null
-
             setCardsContextMain(nextCardsContextMain)
+
+        }
+        // обработка события для мода игры с картинками
+        else if ((gameMode !== 'numbers') && (e.target.getAttribute('status') !== 'empty') && ((differenceOfIndexes() === 1) || (differenceOfIndexes() === 4))) {
+
+            const nextMainArr = mainArray.slice()
+            nextMainArr[clickedIndex][2] = 'empty'
+            nextMainArr[currentEmptyIndex][2] = 'busy'
+
+            setMainArray(nextMainArr);
+
+            const nextMainArrayImages = mainArrayImages.slice()
+            console.log(nextMainArrayImages)
+            console.log(nextMainArrayImages[currentEmptyIndex])
+            console.log(nextMainArrayImages[clickedIndex])
+            nextMainArrayImages[currentEmptyIndex] = nextMainArrayImages[clickedIndex]
+            nextMainArrayImages[clickedIndex] = null
+            setMainArrayImages(nextMainArrayImages)
         }
     }
 
@@ -187,7 +180,7 @@ export default function Mainbox() {
                           onClickFunc={handleClick}
                           status = {item[2]}
                           gameMode = {gameMode}
-                          bgCoordinates = {backgroundCoordinates[index]}
+                          bgCoordinates = {mainArrayImages[index]}
                     />
                 </>
             )
