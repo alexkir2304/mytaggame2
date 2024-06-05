@@ -28,7 +28,7 @@ export default function Card({value, styleLeft, styleTop, id, onClickFunc, statu
                              width:'100%',
                              height:'100%',
                              backgroundImage: bgCoordinates !== null ? `url(${myPicture.src})`: null,
-                             backgroundSize: '500%',
+                             backgroundSize: '400%',
                              backgroundPosition: bgCoordinates}}>
                     </div>
                 </>

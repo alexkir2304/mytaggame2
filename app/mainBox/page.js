@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import myPicture from './zones/images/12345.jpg'
 import styles from "./main.scss";
+
 export default function Mainbox() {
 
     const [gameMode, setGameMode] = useState('number');
@@ -88,21 +89,21 @@ export default function Mainbox() {
 
     const backgroundCoordinates = [
         '0% 0%',
-        '25% 0%',
-        '50% 0%',
-        '75% 0%',
-        '0% 25%',
-        '25% 25%',
-        '50% 25%',
-        '75% 25%',
-        '0% 50%',
-        '25% 50%',
-        '50% 50%',
-        '75% 50%',
-        '0% 75%',
-        '25% 75%',
-        '50% 75%',
-        '75% 75%',
+        '33% 0%',
+        '66% 0%',
+        '100% 0%',
+        '0% 33%',
+        '33% 33%',
+        '66% 33%',
+        '100% 33%',
+        '0% 66%',
+        '33% 66%',
+        '66% 66%',
+        '100% 66%',
+        '0% 100%',
+        '33% 100%',
+        '66% 100%',
+        '100% 100%',
     ]
 
     shuffle(backgroundCoordinates)
@@ -198,8 +199,6 @@ export default function Mainbox() {
         <>
             <div className="mainBox">
                 {myNewCards}
-                {/*<Image src={myPicture} style={{height:'100%', width:'100%'}}/>*/}
-                {/*<img src="/zones/images/12345.jpg" alt='something' />*/}
             </div>
         </>
     )
