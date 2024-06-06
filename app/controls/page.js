@@ -5,18 +5,14 @@ import './controls.scss'
 
 import myPicture from "@/app/mainBox/zones/images/12345.jpg";
 
-function CardForChose ({imagePath, isImage = false}) {
+function CardForChose ({imagePath, isImage = false, modeIsChosen, id}) {
     return (
-        <div style={{
-            height: '30vh',
-            width: '30vh',
-            border: '3px solid black',
-            overflow: 'hidden',
-            position: 'relative',
-            // backgroundImage: isImage === true ? `url(${myPicture.src})` : null,
-            // backgroundSize: '100%',
-        }}>
-            {isImage !== false ? <Image src={myPicture}  fill={true} alt={'something'}/> : null}
+        <div
+            id = {id}
+            className='controlCards'
+             onClick = {modeIsChosen}
+        >
+            {id === 1 ? 'Numbers' : 'Picture'}
         </div>
     )
 }
@@ -24,23 +20,34 @@ function CardForChose ({imagePath, isImage = false}) {
 function ModeToggler () {
     return (
         <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
             width: '25%',
-            border: '3px solid black'
+            textAlign: 'center',
+            fontSize: '4vh',
+            color: '#008080'
         }}>
-            something toggling the mode
+            or
         </div>
     )
 }
 
-export default function Controls () {
+export default function Controls ({modeIsChosenLifted}) {
+
+
+
+    // function handleClick() {
+    //     console.log('hello')
+    // }
 
     return (
         <div
             className='controlsWrapper'
             >
-            <CardForChose />
+            <CardForChose id = {1} modeIsChosen = {modeIsChosenLifted}   />
             <ModeToggler/>
-            <CardForChose isImage={true}/>
+            <CardForChose id = {2}  modeIsChosen = {modeIsChosenLifted}/>
         </div>
     )
 }

@@ -15,7 +15,7 @@ export default function Card({value, styleLeft, styleTop, id, onClickFunc, statu
         if (gameMode === 'numbers') {
             return (
                 <>
-                    {status}
+                    {/*{status}*/}
                     {value}
                 </>
             )
@@ -44,10 +44,17 @@ export default function Card({value, styleLeft, styleTop, id, onClickFunc, statu
                      left: styleLeft,
                      top: styleTop
                  }}
-                 onClick={onClickFunc}
+                 // onClick={onClickFunc}
                  status = {status}
             >
-               {myContent()}
+                <div
+                    id={id}
+                    className='cardsNumber'
+                     onClick={onClickFunc}
+                >
+                    {myContent()}
+                </div>
+
             </div>
         </>
     );

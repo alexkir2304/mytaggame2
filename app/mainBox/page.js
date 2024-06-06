@@ -8,9 +8,9 @@ import Image from "next/image";
 import myPicture from './zones/images/12345.jpg'
 import styles from "./main.scss";
 
-export default function Mainbox() {
+export default function Mainbox({gameMode}) {
 
-    const [gameMode, setGameMode] = useState('number');
+    // const [gameMode, setGameMode] = useState('number');
 
     // const Card = dynamic(() => import('./zones/page'), { ssr: false })
 
