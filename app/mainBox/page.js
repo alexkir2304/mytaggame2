@@ -56,6 +56,11 @@ export default function Mainbox({gameMode}) {
         }
     })
 
+
+    const winCheckNewContextArr = newContextArr.slice()
+    winCheckNewContextArr[winCheckNewContextArr.length-1] = null
+    console.log(winCheckNewContextArr)
+
     function shuffle(array) {
         let currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -83,7 +88,13 @@ export default function Mainbox({gameMode}) {
 
 
     const [cardsContextMain, setCardsContextMain] = useState(newContextArr);
+    console.log(cardsContextMain)
 
+
+    //выигрыш для числового мода
+    if (cardsContextMain === winCheckNewContextArr) {
+        console.log('Victory!!!')
+    }
 
     // работаем с кодом для картинок
 
@@ -106,12 +117,19 @@ export default function Mainbox({gameMode}) {
         '100% 100%',
     ]
 
+    const winCheckBackgroundCoordinates = backgroundCoordinates.slice()
+    winCheckBackgroundCoordinates[winCheckBackgroundCoordinates.length-1] = null
+
     shuffle(backgroundCoordinates)
     const lastCardIndex = backgroundCoordinates.findIndex((item) => item === '75% 75%')
     backgroundCoordinates[lastCardIndex] = backgroundCoordinates[randomItem]
     backgroundCoordinates[randomItem] = null
 
     const [mainArrayImages, setMainArrayImages] = useState(backgroundCoordinates)
+
+    if (mainArrayImages === winCheckBackgroundCoordinates) {
+        console.log('')
+    }
 
     function handleClick(e) {
         const currentEmptyIndex = mainArray.findIndex(item => item[2] === 'empty');
