@@ -10,14 +10,6 @@ import styles from "./main.scss";
 
 export default function Mainbox({gameMode}) {
 
-    // const [gameMode, setGameMode] = useState('number');
-
-    // const Card = dynamic(() => import('./zones/page'), { ssr: false })
-
-    //массив с координатами для нарезки изображения на сектора
-
-    //создаю главный массив числового мода, управаляющий дочерними компонентами
-
     const cardsCoordinates = [
         [' 0%', ' 0%', 'busy' ],
         [' 25%', ' 0%', 'busy' ],
@@ -40,7 +32,6 @@ export default function Mainbox({gameMode}) {
     const randomItem = +(Math.random()*10).toFixed(0);
     cardsCoordinates[randomItem][2] = 'empty'
 
-
     const [mainArray, setMainArray] = useState(cardsCoordinates);
 
     //создаю массив с контентом карточек - пока что цифры, далее добавлю нарезанные картинки
@@ -55,7 +46,6 @@ export default function Mainbox({gameMode}) {
             )
         }
     })
-
 
     const winCheckNewContextArr = newContextArr.slice()
     winCheckNewContextArr[winCheckNewContextArr.length-1] = null
@@ -86,10 +76,8 @@ export default function Mainbox({gameMode}) {
     newContextArr[maxNumberIndex] = newContextArr[randomItem]
     newContextArr[randomItem] = null
 
-
     const [cardsContextMain, setCardsContextMain] = useState(newContextArr);
     console.log(cardsContextMain)
-
 
     //выигрыш для числового мода
     if (cardsContextMain === winCheckNewContextArr) {
@@ -128,7 +116,7 @@ export default function Mainbox({gameMode}) {
     const [mainArrayImages, setMainArrayImages] = useState(backgroundCoordinates)
 
     if (mainArrayImages === winCheckBackgroundCoordinates) {
-        console.log('')
+        console.log('Victory!!!')
     }
 
     function handleClick(e) {
@@ -137,9 +125,6 @@ export default function Mainbox({gameMode}) {
 
         const clickedIndex = e.target.getAttribute('id');
         console.log('my clicked index is' + clickedIndex)
-
-        // const maxOfClickedAndEmpty = Math.max(currentEmptyIndex, clickedIndex)
-        // console.log('maxOfClickedAndEmpty' + maxOfClickedAndEmpty)
 
         const differenceOfIndexes = ()=> {
             if (currentEmptyIndex > clickedIndex) {
@@ -165,8 +150,8 @@ export default function Mainbox({gameMode}) {
             nextCardsContextMain[currentEmptyIndex] = nextCardsContextMain[clickedIndex]
             nextCardsContextMain[clickedIndex] = null
             setCardsContextMain(nextCardsContextMain)
-
         }
+
         // обработка события для мода игры с картинками
         else if ((gameMode !== 'numbers') && (e.target.getAttribute('status') !== 'empty') && ((differenceOfIndexes() === 1) || (differenceOfIndexes() === 4))) {
 
@@ -188,7 +173,6 @@ export default function Mainbox({gameMode}) {
 
     const myNewCards = mainArray.map((item, index) => {
 
-        if (true) {                                                                 // todo
             return (
                 <>
                     <Card key={index}
@@ -203,14 +187,7 @@ export default function Mainbox({gameMode}) {
                     />
                 </>
             )
-        }
-        // else {
-        //     return (
-        //         <>
-        //             <Card key={index} styleLeft = {item[0]} styleTop = {item[1]} value = {cardsContextMain[index]} id = {index} onClickFunc={handleClick} status = {item[2]} gameMode = {gameMode}/>
-        //         </>
-        //     )
-        // }
+
     })
 
     return (

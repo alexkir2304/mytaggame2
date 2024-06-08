@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import './controls.scss'
-
 import myPicture from "@/app/mainBox/zones/images/12345.jpg";
 
-function CardForChose ({imagePath, isImage = false, modeIsChosen, id}) {
+function CardForChose ({modeIsChosen, id}) {
     return (
         <div
             id = {id}
@@ -34,12 +33,6 @@ function ModeToggler () {
 }
 
 export default function Controls ({modeIsChosenLifted}) {
-
-
-
-    // function handleClick() {
-    //     console.log('hello')
-    // }
 
     return (
         <div

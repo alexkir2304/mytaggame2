@@ -1,15 +1,10 @@
 'use client'
 import './zones.scss'
 import {useState} from "react";
-
 import myPicture from "@/app/mainBox/zones/images/12345.jpg";
 import Image from "next/image";
 
-
-
 export default function Card({value, styleLeft, styleTop, id, onClickFunc, status, gameMode, bgCoordinates}) {
-
-
 
     function myContent () {
         if (gameMode === 'numbers') {
@@ -38,11 +33,12 @@ export default function Card({value, styleLeft, styleTop, id, onClickFunc, statu
 
     return (
         <>
-            <div className="mainZoneClass"
+            <div className={gameMode === 'pictures' ? "mainZoneClassPictures" : "mainZoneClass" }
+
                  id={id}
                  style={{
                      left: styleLeft,
-                     top: styleTop
+                     top: styleTop,
                  }}
                  // onClick={onClickFunc}
                  status = {status}
@@ -50,11 +46,10 @@ export default function Card({value, styleLeft, styleTop, id, onClickFunc, statu
                 <div
                     id={id}
                     className='cardsNumber'
-                     onClick={onClickFunc}
+                    onClick={onClickFunc}
                 >
                     {myContent()}
                 </div>
-
             </div>
         </>
     );

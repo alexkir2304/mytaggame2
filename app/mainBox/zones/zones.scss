@@ -1,4 +1,4 @@
-.mainZoneClass {
+%test-collection-of-properties {
     display: block;
     position: absolute;
     width: 25%;
@@ -6,25 +6,27 @@
     left: 25%;
     scale: (0.95);
     overflow: hidden;
-    //margin: 5% 5%;
     border-radius: 15px;
-    //box-shadow:-10px -10px 15px 0px #f6f6f6, 10px 10px 15px 0px #cecece;
-    //box-shadow: 10px 10px 15px 0px #f6f6f6 inset, -10px -10px 15px 0px #cecece inset;
-    box-shadow: 12px 12px 16px 0 #f6f6f6,
-    -8px -8px 12px 0 #cecece;
-
-    background: linear-gradient(315deg, #f6f6f6, #cecece);
-
     text-align: center;
     font-size: 6vh;
-    //color: #663399
+}
+
+.mainZoneClass {
+    @extend %test-collection-of-properties;
+    box-shadow: 12px 12px 16px 0 #f6f6f6,
+    -8px -8px 12px 0 #cecece;
+    background: linear-gradient(315deg, #f6f6f6, #cecece);
+}
+
+.mainZoneClassPictures {
+    @extend %test-collection-of-properties;
+    scale: (0.98);
 }
 
 .cardsNumber {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    // alignContent: 'center',
     width: 100%;
     height: 100%;
     color: #008080;

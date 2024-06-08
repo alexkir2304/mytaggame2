@@ -14,14 +14,9 @@ export default function Home() {
 
     const Mainbox = dynamic(() => import('./mainBox/page'), { ssr: false })
 
-    const test = 20
-
     function handleClick(e) {
         +e.target.getAttribute('id') !== 1 ? setGameMode('pictures') : setGameMode('numbers')
-
-        console.log(e.target.getAttribute('id'))
     }
-
 
     return (
         <div className="mainWrapper">
