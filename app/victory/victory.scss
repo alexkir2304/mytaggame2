@@ -1,0 +1,13 @@
+.tryAgain {
+  color: #008080;
+  font-size: 6vh;
+  border-radius: 15px;
+  border: none;
+  //background-color: #e6e6e6;
+  cursor: pointer;
+  box-shadow: 12px 12px 16px 0 #f6f6f6, -8px -8px 12px 0 #cecece;
+  background: linear-gradient(0deg, #f6f6f6, #cecece);
+  &:active {
+    background: linear-gradient(180deg, #f6f6f6, #cecece);
+  }
+}

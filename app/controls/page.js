@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import './controls.scss'
-import myPicture from "@/app/mainBox/zones/images/12345.jpg";
+// import myPicture from "@/app/mainBox/zones/images/12345.jpg";
 
 function CardForChose ({modeIsChosen, id}) {
     return (

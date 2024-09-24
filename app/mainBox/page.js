@@ -8,7 +8,7 @@ import Image from "next/image";
 import myPicture from './zones/images/12345.jpg'
 import styles from "./main.scss";
 
-export default function Mainbox({gameMode}) {
+export default function Mainbox({gameMode, onVictoryNumbers}) {
 
     const cardsCoordinates = [
         [' 0%', ' 0%', 'busy' ],
@@ -47,9 +47,11 @@ export default function Mainbox({gameMode}) {
         }
     })
 
+
     const winCheckNewContextArr = newContextArr.slice()
     winCheckNewContextArr[winCheckNewContextArr.length-1] = null
-    console.log(winCheckNewContextArr)
+
+    // console.log(newContextArr)
 
     function shuffle(array) {
         let currentIndex = array.length, temporaryValue, randomIndex;
@@ -70,6 +72,7 @@ export default function Mainbox({gameMode}) {
     }
     //перемешиваю контент карточек
     shuffle(newContextArr);
+    // console.log(newContextArr)
 
     //перемещаем контент из карты 'empty'  в карту с наибольшим значением, наибольшее значение убираем
     const maxNumberIndex = newContextArr.findIndex(item => item === newContextArr.length)
@@ -77,11 +80,13 @@ export default function Mainbox({gameMode}) {
     newContextArr[randomItem] = null
 
     const [cardsContextMain, setCardsContextMain] = useState(newContextArr);
-    console.log(cardsContextMain)
+
+
 
     //выигрыш для числового мода
     if (cardsContextMain === winCheckNewContextArr) {
         console.log('Victory!!!')
+        alert('victory!')
     }
 
     // работаем с кодом для картинок
@@ -119,12 +124,26 @@ export default function Mainbox({gameMode}) {
         console.log('Victory!!!')
     }
 
+    // console.log(cardsContextMain)
+    // console.log(winCheckNewContextArr)
+
+    const test1 = cardsContextMain.join('')
+    const test2 = winCheckNewContextArr.join('')
+
+    // console.log(test1)
+    // console.log(test2)
+
+
+
     function handleClick(e) {
+
+
+
         const currentEmptyIndex = mainArray.findIndex(item => item[2] === 'empty');
-        console.log('my current empty index is' + currentEmptyIndex)
+        //console.log('my current empty index is' + currentEmptyIndex)
 
         const clickedIndex = e.target.getAttribute('id');
-        console.log('my clicked index is' + clickedIndex)
+        //console.log('my clicked index is' + clickedIndex)
 
         const differenceOfIndexes = ()=> {
             if (currentEmptyIndex > clickedIndex) {
@@ -150,6 +169,8 @@ export default function Mainbox({gameMode}) {
             nextCardsContextMain[currentEmptyIndex] = nextCardsContextMain[clickedIndex]
             nextCardsContextMain[clickedIndex] = null
             setCardsContextMain(nextCardsContextMain)
+
+
         }
 
         // обработка события для мода игры с картинками
@@ -162,37 +183,44 @@ export default function Mainbox({gameMode}) {
             setMainArray(nextMainArr);
 
             const nextMainArrayImages = mainArrayImages.slice()
-            console.log(nextMainArrayImages)
-            console.log(nextMainArrayImages[currentEmptyIndex])
-            console.log(nextMainArrayImages[clickedIndex])
+            //console.log(nextMainArrayImages)
+            //console.log(nextMainArrayImages[currentEmptyIndex])
+            //console.log(nextMainArrayImages[clickedIndex])
             nextMainArrayImages[currentEmptyIndex] = nextMainArrayImages[clickedIndex]
             nextMainArrayImages[clickedIndex] = null
             setMainArrayImages(nextMainArrayImages)
         }
+
+        if (test1 === test2) {
+            onVictoryNumbers()
+        }
+
     }
 
     const myNewCards = mainArray.map((item, index) => {
 
             return (
-                <>
+
                     <Card key={index}
                           styleLeft = {item[0]}
                           styleTop = {item[1]}
                           value = {cardsContextMain[index]}
                           id = {index}
-                          onClickFunc={handleClick}
+                          onClickFunc = {handleClick}
                           status = {item[2]}
                           gameMode = {gameMode}
                           bgCoordinates = {mainArrayImages[index]}
                     />
-                </>
+
             )
 
     })
 
+
+
     return (
         <>
-            <div className="mainBox">
+            <div className="mainBox" >
                 {myNewCards}
             </div>
         </>
